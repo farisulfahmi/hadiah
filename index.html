@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kado Pilihan Hadiah</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(#e66465, #9198e5);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: sans-serif;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .gift-box {
+        width: 150px;
+        height: 150px;
+        background: #ff4d6d;
+        border-radius: 10px;
+        position: relative;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        transition: transform 0.5s ease, opacity 0.5s ease;
+      }
+
+      .gift-box.opened {
+        transform: rotateX(90deg);
+        opacity: 0;
+      }
+
+      .gift-box::before,
+      .gift-box::after {
+        content: "";
+        position: absolute;
+        background: gold;
+      }
+
+      .gift-box::before {
+        width: 100%;
+        height: 20px;
+        top: 65px;
+        left: 0;
+      }
+
+      .gift-box::after {
+        height: 100%;
+        width: 20px;
+        top: 0;
+        left: 65px;
+      }
+
+      .ribbon {
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 30px solid transparent;
+        border-right: 30px solid transparent;
+        border-bottom: 30px solid gold;
+      }
+
+      .message {
+        display: none;
+        color: white;
+        font-size: 20px;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 10px;
+        max-width: 90%;
+      }
+
+      .choices {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+        width: 100%;
+      }
+
+      .choices button {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        background-color: gold;
+        color: black;
+        transition: background 0.3s ease;
+        width: 200px;
+        max-width: 80%;
+      }
+
+      .choices button:hover {
+        background-color: #ffeb3b;
+      }
+
+      .prize {
+        display: none;
+        margin-top: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      .prize img {
+        width: 250px;
+        max-width: 90%;
+        border-radius: 10px;
+      }
+
+      @media (max-width: 600px) {
+        .gift-box {
+          width: 120px;
+          height: 120px;
+        }
+
+        .choices button {
+          font-size: 16px;
+          padding: 8px 16px;
+        }
+
+        .prize img {
+          width: 200px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gift-box" id="giftBox">
+      <div class="ribbon"></div>
+    </div>
+
+    <div class="message" id="message">
+      🎉 Selamat! Pilih hadiahmu di bawah ini 🎁
+    </div>
+
+    <div class="choices" id="choices">
+      <button onclick="showPrize('mobil')">Hadiah 1</button>
+      <button onclick="showPrize('uang')">Hadiah 2</button>
+    </div>
+
+    <div class="prize" id="prizeMobil">
+      <h2>Selamat! Kamu mendapatkan Mobil 🚗</h2>
+      <img src="mobil.jpeg" alt="Mobil" />
+    </div>
+
+    <div class="prize" id="prizeUang">
+      <h2>Selamat! Kamu mendapatkan Uang Rp1 Juta 💸</h2>
+      <img src="uang.png" alt="Uang" />
+    </div>
+
+    <script>
+      const giftBox = document.getElementById("giftBox");
+      const message = document.getElementById("message");
+      const choices = document.getElementById("choices");
+      const prizeMobil = document.getElementById("prizeMobil");
+      const prizeUang = document.getElementById("prizeUang");
+
+      giftBox.addEventListener("click", () => {
+        giftBox.classList.add("opened");
+
+        setTimeout(() => {
+          giftBox.style.display = "none";
+          message.style.display = "block";
+          choices.style.display = "flex";
+        }, 500);
+      });
+
+      function showPrize(pilihan) {
+        message.style.display = "none";
+        choices.style.display = "none";
+
+        if (pilihan === "mobil") {
+          prizeMobil.style.display = "block";
+        } else if (pilihan === "uang") {
+          prizeUang.style.display = "block";
+        }
+      }
+    </script>
+  </body>
+</html>
